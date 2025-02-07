@@ -8,6 +8,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: eb176d6f117b2b8488d49f43e7b03891
+  - enabled: 1
+    path: Assets/Scenes/GameShow.unity
+    guid: 39cc80f49235f49158bba15b331da6ec
+  - enabled: 1
+    path: Assets/Scenes/VR Basics.unity
+    guid: 8623ab828cbb79242915897926382e9a
+  - enabled: 1
+    path: Assets/Scenes/MatchGame.unity
+    guid: 7a2a4f802a9064998979340ac7004550
+  - enabled: 1
+    path: Assets/Scenes/MazeGame.unity
+    guid: c4bd1a0a157a24f7db64a894d20db7fc
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3327d02ee6a87c24d832af7c1b647590,
       type: 2}
