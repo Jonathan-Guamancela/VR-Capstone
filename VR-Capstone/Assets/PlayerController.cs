@@ -9,28 +9,48 @@ public class PlayerController : MonoBehaviour
     public Transform head;
     public Camera camera;
 
-
     [Header("Configurations")]
-    public float walkSpeed;
-    public float runSpeed;
-    // Start is called before the first frame update
+    public float walkSpeed = 5f;
+    public float runSpeed = 10f;
+    public float mouseSensitivity = 2f;
+
+    private float verticalRotation = 0f;
+
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        HandleMouseLook();
     }
 
     void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    void HandleMouseLook()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        verticalRotation -= mouseY;
+        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
+
+        head.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * mouseX);
+    }
+
+    void MovePlayer()
     {
         Vector3 newVelocity = Vector3.up * rb.velocity.y;
         float speed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
         newVelocity.x = Input.GetAxis("Horizontal") * speed;
         newVelocity.z = Input.GetAxis("Vertical") * speed;
-        rb.velocity = newVelocity;
+
+        rb.velocity = transform.TransformDirection(newVelocity);
     }
 }

@@ -53,7 +53,7 @@ public class Collectible : MonoBehaviour
 
     private IEnumerator ShowText()
     {
-        collectibleText.text = "Collected!";
+       // collectibleText.text = "Collected!";
 
         // Fade in
         float duration = 0.5f;
