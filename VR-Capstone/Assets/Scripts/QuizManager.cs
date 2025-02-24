@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine.SceneManagement; // Required for scene management
 
 public class QuizManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class QuizManager : MonoBehaviour
     public TextMeshProUGUI questionText; // UI text that displays the question
     public Button[] answerButtons; // Array of buttons for the answers
     public TextMeshProUGUI[] answerTexts; // Text for each answer button
+    public GameObject retryMenu;
 
     private int currentQuestionIndex = 0;
     private bool isAnsweringQuestion = true; // Flag to check if the player is answering a question
@@ -26,6 +28,7 @@ public class QuizManager : MonoBehaviour
         ShuffleQuestions(); // Shuffle questions at the start
         DisplayQuestion();
         SetDefaultButtonStyles(); // Set the default button styles when the game starts
+        retryMenu.SetActive(false);
     }
 
     // Shuffle the order of the questions
@@ -37,6 +40,7 @@ public class QuizManager : MonoBehaviour
     // Display the current question and shuffle the answers
     void DisplayQuestion()
     {
+        retryMenu.SetActive(false); // Hide retry menu when loading a new question
         if (questions.Length == 0)
         {
             Debug.LogError("No questions available.");
@@ -126,11 +130,14 @@ public class QuizManager : MonoBehaviour
             // Change the wrong answer button color to a dampened gray/red
             answerButtons[index].GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f); // Light red to indicate wrong answer
 
-            // Optionally, add feedback for wrong answer (e.g., "Try again" message)
-            Debug.Log("Wrong answer, try again!");
+            questionText.gameObject.SetActive(false);
+            foreach (Button btn in answerButtons)
+            {
+                btn.gameObject.SetActive(false);
+            }
 
-            // Prevent moving to the next question until the correct answer is selected
-            isAnsweringQuestion = false;
+            // Show the retry menu
+            retryMenu.SetActive(true);
         }
     }
 
@@ -148,4 +155,15 @@ public class QuizManager : MonoBehaviour
             Debug.Log("Quiz Complete!");
         }
     }
+
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ExitRetry()
+    {
+        retryMenu.SetActive(false); // Hide the menu, let them retry the same question
+    }
+
 }
