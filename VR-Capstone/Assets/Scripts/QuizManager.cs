@@ -23,6 +23,9 @@ public class QuizManager : MonoBehaviour
     private int currentQuestionIndex = 0;
     private bool isAnsweringQuestion = true; // Flag to check if the player is answering a question
 
+    private int score = 0; // Track score
+    public TextMeshProUGUI scoreText; // Assign in Unity Inspector
+
     void Start()
     {
         ShuffleQuestions(); // Shuffle questions at the start
@@ -121,6 +124,9 @@ public class QuizManager : MonoBehaviour
             // Change the button color to green for the correct answer
             answerButtons[index].GetComponent<Image>().color = Color.green;
 
+            score++; // Increase score
+            UpdateScoreUI(); // Update score display
+
             // Move to the next question after a brief delay
             Invoke("NextQuestion", 1f);
         }
@@ -129,6 +135,9 @@ public class QuizManager : MonoBehaviour
             Debug.Log("Wrong Answer");
             // Change the wrong answer button color to a dampened gray/red
             answerButtons[index].GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f); // Light red to indicate wrong answer
+
+            score = 0; // Reset score
+            UpdateScoreUI(); // Update score display
 
             questionText.gameObject.SetActive(false);
             foreach (Button btn in answerButtons)
@@ -164,6 +173,11 @@ public class QuizManager : MonoBehaviour
     public void ExitRetry()
     {
         retryMenu.SetActive(false); // Hide the menu, let them retry the same question
+    }
+
+    private void UpdateScoreUI()
+    {
+        scoreText.text = "Score: " + score.ToString();
     }
 
 }
