@@ -17,11 +17,13 @@ public class AutoHorse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horseDecision = Random.Range(0, 100) % 5;
-        if (horseDecision == 0)
+        if (HorseGameManager.hr_IsPlaying)
         {
-            slider.value += Random.Range(0, 0.002f);
+            horseDecision = Random.Range(0, 100) % 5;
+            if (horseDecision == 0)
+            {
+                slider.value += Random.Range(0, 0.002f);
+            }
         }
-        
     }
 }

@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
-using UnityEngine.SceneManagement; // Required for scene management
+using UnityEngine.SceneManagement;
+using Unity.VisualScripting; // Required for scene management
 
 public class QuizManager : MonoBehaviour
 {
@@ -127,8 +128,18 @@ public class QuizManager : MonoBehaviour
             score++; // Increase score
             UpdateScoreUI(); // Update score display
 
-            // Move to the next question after a brief delay
-            Invoke("NextQuestion", 1f);
+            if (HorseGameManager.hr_IsQuestioning)
+            {
+                //go back to menu in horse race game
+                BackToHRMenu();
+                Invoke("BackToHRMenu", 1f);
+            }
+            else
+            {
+                // Move to the next question after a brief delay
+                Invoke("NextQuestion", 1f);
+            }
+                
         }
         else
         {
@@ -167,7 +178,14 @@ public class QuizManager : MonoBehaviour
 
     public void RetryGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (HorseGameManager.hr_IsQuestioning)
+        {
+            Start();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     public void ExitRetry()
@@ -178,6 +196,16 @@ public class QuizManager : MonoBehaviour
     private void UpdateScoreUI()
     {
         scoreText.text = "Score: " + score.ToString();
+    }
+
+
+    //---------------------------------------------------------------------------------------//
+    //Horse Game Functions
+
+    void BackToHRMenu()
+    {
+        HorseGameManager.hr_InEndGameMenu = true;
+        HorseGameManager.hr_IsQuestioning = false;
     }
 
 }
