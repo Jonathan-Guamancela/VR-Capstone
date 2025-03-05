@@ -180,7 +180,13 @@ public class QuizManager : MonoBehaviour
     {
         if (HorseGameManager.hr_IsQuestioning)
         {
-            Start();
+            ShuffleQuestions(); // Shuffle questions at the start
+            DisplayQuestion();
+            questionText.gameObject.SetActive(true);
+            foreach (Button btn in answerButtons)
+            {
+                btn.gameObject.SetActive(true);
+            }
         }
         else
         {
