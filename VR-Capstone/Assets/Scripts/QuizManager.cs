@@ -132,6 +132,19 @@ public class QuizManager : MonoBehaviour
 
             score++; // Increase score
             UpdateScoreUI(); // Update score display
+            streak++; // Increase streak
+
+            // If the streak is 2 or more, increase the multiplier
+            if (streak >= 2)
+            {
+                multiplier++; // Increase multiplier as the streak goes up
+            }
+
+            // Add points based on the current multiplier
+            score += basePoints * multiplier;
+
+            // Update the UI score
+            scoreText.text = "Score: " + score;
 
             if (HorseGameManager.hr_IsQuestioning)
             {
@@ -154,6 +167,9 @@ public class QuizManager : MonoBehaviour
 
             score = 0; // Reset score
             UpdateScoreUI(); // Update score display
+            streak = 0; // Reset streak
+            multiplier = 1; // Reset multiplier
+            scoreText.text = "Score: " + score; // Keep score display updated
 
             questionText.gameObject.SetActive(false);
             foreach (Button btn in answerButtons)
@@ -209,34 +225,7 @@ public class QuizManager : MonoBehaviour
         scoreText.text = "Score: " + score.ToString();
     }
 
-    public void OnAnswerSelected(int index)
-    {
-        if (index == currentQuestion.correctAnswerIndex)
-        {
-            HandleCorrectAnswer();
-        }
-        else
-        {
-            HandleWrongAnswer();
-        }
 
-        NextQuestion(); // Load the next question
-    }
-
-    void HandleCorrectAnswer()
-    {
-        streak++; // Increase streak
-        if (streak >= 2) multiplier = 2; // Activate multiplier after 2 correct answers
-        score += basePoints * multiplier; // Add points with multiplier
-        scoreText.text = "Score: " + score; // Update score UI
-    }
-
-    void HandleWrongAnswer()
-    {
-        streak = 0; // Reset streak
-        multiplier = 1; // Reset multiplier
-        scoreText.text = "Score: " + score; // Keep score display updated
-    }
 
 
 
