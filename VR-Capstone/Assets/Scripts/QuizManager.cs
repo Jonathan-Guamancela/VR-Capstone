@@ -21,10 +21,15 @@ public class QuizManager : MonoBehaviour
     public TextMeshProUGUI[] answerTexts; // Text for each answer button
     public GameObject retryMenu;
 
+    private Question currentQuestion;
+
     private int currentQuestionIndex = 0;
     private bool isAnsweringQuestion = true; // Flag to check if the player is answering a question
 
-    private int score = 0; // Track score
+    private int score = 0;           // Total score
+    private int streak = 0;          // Correct answers streak
+    private int multiplier = 1;      // Score multiplier
+    private int basePoints = 10;     // Base points per correct answer
     public TextMeshProUGUI scoreText; // Assign in Unity Inspector
 
     void Start()
@@ -203,6 +208,36 @@ public class QuizManager : MonoBehaviour
     {
         scoreText.text = "Score: " + score.ToString();
     }
+
+    public void OnAnswerSelected(int index)
+    {
+        if (index == currentQuestion.correctAnswerIndex)
+        {
+            HandleCorrectAnswer();
+        }
+        else
+        {
+            HandleWrongAnswer();
+        }
+
+        NextQuestion(); // Load the next question
+    }
+
+    void HandleCorrectAnswer()
+    {
+        streak++; // Increase streak
+        if (streak >= 2) multiplier = 2; // Activate multiplier after 2 correct answers
+        score += basePoints * multiplier; // Add points with multiplier
+        scoreText.text = "Score: " + score; // Update score UI
+    }
+
+    void HandleWrongAnswer()
+    {
+        streak = 0; // Reset streak
+        multiplier = 1; // Reset multiplier
+        scoreText.text = "Score: " + score; // Keep score display updated
+    }
+
 
 
     //---------------------------------------------------------------------------------------//
