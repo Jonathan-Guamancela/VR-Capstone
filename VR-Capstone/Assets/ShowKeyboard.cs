@@ -22,4 +22,4 @@ public class ShowKeyboard : MonoBehaviour
         NonNativeKeyboard.Instance.PresentKeyboard(inputField.text);
 
     }
-};
+}
