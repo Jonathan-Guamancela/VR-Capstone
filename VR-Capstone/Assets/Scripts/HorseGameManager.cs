@@ -26,8 +26,6 @@ public class HorseGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log("hi: " + hr_IsPlaying + hr_IsQuestioning + hr_InEndGameMenu + hr_inMenu);
         if (horsePlayer.value == 1)
         {
             EndGame();
