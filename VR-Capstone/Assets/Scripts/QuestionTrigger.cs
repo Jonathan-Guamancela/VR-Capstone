@@ -3,26 +3,42 @@ using TMPro;
 
 public class QuestionTrigger : MonoBehaviour
 {
-    public GameObject questionUI;  // Assign the UI panel with the question
+    [Header("UI Elements")]
+    public GameObject questionUI;
     public TMP_Text questionText;
-    public string question = "What is 2 + 2?";
-    public string[] answers = { "3", "4", "5" };
-    public int correctAnswerIndex = 1;
+    public TMP_Text[] answerTexts; // Text for each button
 
-    private bool isPlayerNearby = false;
+    [Header("Question Data")]
+    [TextArea]
+    public string question;
+    public string[] answers;
+    public int correctAnswerIndex;
+
+    private bool hasBeenAnswered = false;
 
     void Start()
     {
         questionUI.SetActive(false);
+        SetupQuestion();
+    }
+
+    void SetupQuestion()
+    {
         questionText.text = question;
+        for (int i = 0; i < answerTexts.Length; i++)
+        {
+            if (i < answers.Length)
+                answerTexts[i].text = answers[i];
+            else
+                answerTexts[i].text = "";
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !hasBeenAnswered)
         {
             questionUI.SetActive(true);
-            isPlayerNearby = true;
         }
     }
 
@@ -31,7 +47,6 @@ public class QuestionTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             questionUI.SetActive(false);
-            isPlayerNearby = false;
         }
     }
 
@@ -39,14 +54,14 @@ public class QuestionTrigger : MonoBehaviour
     {
         if (index == correctAnswerIndex)
         {
-            Debug.Log("Correct Answer!");
+            Debug.Log("Correct!");
+            hasBeenAnswered = true;
             questionUI.SetActive(false);
-            GameManager.Instance.QuestionAnswered(); // Notify game manager
+            GameManager.Instance.QuestionAnswered();
         }
         else
         {
-            Debug.Log("Wrong Answer! Try Again.");
+            Debug.Log("Wrong answer.");
         }
     }
 }
-

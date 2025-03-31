@@ -27,6 +27,8 @@ EditorBuildSettings:
     path: Assets/Scenes/HorseGame.unity
     guid: aa5948751111f4647a6e361b7a90a175
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 5752ba21035ad9745a9d40e602439594,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3327d02ee6a87c24d832af7c1b647590,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 5478e2f835d86f247a829de87178aeb5,
