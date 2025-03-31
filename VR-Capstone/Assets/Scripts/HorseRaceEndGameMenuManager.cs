@@ -47,9 +47,9 @@ public class HorseRaceEndGameMenuManager : MonoBehaviour
             endGameMenu.SetActive(true);
 
             Racer racer1 = new Racer("Player", horsePlayer.value);
-            Racer racer2 = new Racer("Frank2", horse2.value);
-            Racer racer3 = new Racer("Sally3", horse3.value);
-            Racer racer4 = new Racer("Cherl4", horse4.value);
+            Racer racer2 = new Racer("Frank", horse2.value);
+            Racer racer3 = new Racer("Sally", horse3.value);
+            Racer racer4 = new Racer("Cherl", horse4.value);
 
             racers.Add(racer1);
             racers.Add(racer2);
