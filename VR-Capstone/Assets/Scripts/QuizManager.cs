@@ -4,6 +4,8 @@ using TMPro;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting; // Required for scene management
+using System.Collections.Generic;
+
 
 public class QuizManager : MonoBehaviour
 {
@@ -43,7 +45,15 @@ public class QuizManager : MonoBehaviour
     // Shuffle the order of the questions
     void ShuffleQuestions()
     {
-        questions = questions.OrderBy(a => Random.Range(0f, 1f)).ToArray();
+        System.Random rng = new System.Random();
+
+        for (int i = questions.Length - 1; i > 0; i--)
+        {
+            int swapIndex = rng.Next(i + 1);
+            var temp = questions[i];
+            questions[i] = questions[swapIndex];
+            questions[swapIndex] = temp;
+        }
     }
 
     // Display the current question and shuffle the answers
@@ -80,23 +90,19 @@ public class QuizManager : MonoBehaviour
         isAnsweringQuestion = true;
     }
 
-    // Shuffle the answers of a given question
     void ShuffleAnswers(Question question)
     {
-        // Shuffle the answers
-        int correctIndex = question.correctAnswerIndex;
-        question.answers = question.answers.OrderBy(a => Random.Range(0f, 1f)).ToArray();
+        List<string> shuffledAnswers = question.answers.ToList(); // Convert array to List for shuffling
+        string correctAnswer = question.answers[question.correctAnswerIndex]; // Store correct answer text
 
-        // Find the new index of the correct answer
-        for (int i = 0; i < question.answers.Length; i++)
-        {
-            if (question.answers[i] == question.answers[correctIndex])
-            {
-                question.correctAnswerIndex = i;
-                break;
-            }
-        }
+        shuffledAnswers = shuffledAnswers.OrderBy(a => Random.value).ToList(); // Properly shuffle answers
+
+        question.answers = shuffledAnswers.ToArray(); // Convert back to array
+
+        // Update correctAnswerIndex to match the new position of the correct answer
+        question.correctAnswerIndex = shuffledAnswers.IndexOf(correctAnswer);
     }
+
 
     void SetDefaultButtonStyles()
     {
@@ -122,6 +128,10 @@ public class QuizManager : MonoBehaviour
             btn.GetComponent<Image>().color = Color.white; // Reset to white
             btn.GetComponentInChildren<TextMeshProUGUI>().color = Color.black; // Reset text to black
         }
+
+        // Get the selected answer text
+        string selectedAnswer = answerButtons[index].GetComponentInChildren<TextMeshProUGUI>().text;
+        string correctAnswer = q.answers[q.correctAnswerIndex]; // Get the correct answer text
 
         // Check if the answer is correct
         if (index == q.correctAnswerIndex)
@@ -194,6 +204,10 @@ public class QuizManager : MonoBehaviour
         {
             // End of quiz or any other action you want (like showing score)
             Debug.Log("Quiz Complete!");
+            // If you want to restart the quiz, shuffle and reset:
+            ShuffleQuestions();
+            currentQuestionIndex = 0;
+            DisplayQuestion();
         }
     }
 

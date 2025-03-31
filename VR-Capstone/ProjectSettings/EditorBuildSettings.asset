@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/VR Basics.unity
     guid: 8623ab828cbb79242915897926382e9a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MatchGame.unity
     guid: 7a2a4f802a9064998979340ac7004550
   - enabled: 1
@@ -27,6 +27,8 @@ EditorBuildSettings:
     path: Assets/Scenes/HorseGame.unity
     guid: aa5948751111f4647a6e361b7a90a175
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 5752ba21035ad9745a9d40e602439594,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3327d02ee6a87c24d832af7c1b647590,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 5478e2f835d86f247a829de87178aeb5,
