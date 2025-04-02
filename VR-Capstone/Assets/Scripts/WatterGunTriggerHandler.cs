@@ -16,9 +16,13 @@ public class WatterGunTriggerHandler : MonoBehaviour
 
     private void OnParticleTrigger()
     {
-        if (slider.value < 1f)
+       if (HorseGameManager.hr_IsPlaying)
         {
-            slider.value += 0.0025f;
+            if (slider.value < 1f)
+            {
+                slider.value += 0.0025f;
+            }
         }
+        
     }
 }

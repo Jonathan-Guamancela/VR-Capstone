@@ -11,7 +11,7 @@ public class ButtonActions : MonoBehaviour
     public void ShowHorse() 
     { 
         // Logic to open settings menu or load settings scene
-        SceneManager.LoadScene("HorseGame");
+        SceneManager.LoadScene("VR Basics");
     }
 
     public void ShowMatch()
