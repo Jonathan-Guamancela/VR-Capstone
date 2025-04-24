@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/VR Basics.unity
     guid: 8623ab828cbb79242915897926382e9a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MatchGame.unity
     guid: 7a2a4f802a9064998979340ac7004550
   - enabled: 1
@@ -27,6 +27,8 @@ EditorBuildSettings:
     path: Assets/Scenes/HorseGame.unity
     guid: aa5948751111f4647a6e361b7a90a175
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 04b98c29d123e3b46b28aaeb9636d100,
+      type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 5752ba21035ad9745a9d40e602439594,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3327d02ee6a87c24d832af7c1b647590,

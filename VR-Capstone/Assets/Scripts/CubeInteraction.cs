@@ -68,6 +68,11 @@ public class CubeInteraction : MonoBehaviour
     // Called when the cube is grabbed
     private void OnGrab(SelectEnterEventArgs args)
     {
+        if (MatchQuestionHandler.Instance != null && MatchQuestionHandler.Instance.IsWaiting())
+        {
+            return; 
+        }
+
         if (firstPickedCube == null)
         {
             firstPickedCube = gameObject;
@@ -106,9 +111,13 @@ public class CubeInteraction : MonoBehaviour
         {
             if (firstPickedCube.CompareTag(secondPickedCube.tag))
             {
-                Debug.Log("Matched: " + firstPickedCube.tag);
+                Debug.Log("Matched!");
                 Destroy(firstPickedCube);
                 Destroy(secondPickedCube);
+                MatchQuestionHandler.Instance.TriggerQuestion();
+                //Debug.Log("Matched: " + firstPickedCube.tag);
+                //Destroy(firstPickedCube);
+                //Destroy(secondPickedCube);
             }
             else
             {
